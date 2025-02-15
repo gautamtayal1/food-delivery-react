@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useEffect } from "react"
 import { ResCard } from "./ResCard"
+import { Link } from "react-router"
 
-export function Main(){
+export function Body(){
     const [restaurantsList, setRestaurantList] = useState([])
     const [searchList, setSearchList] = useState([])
     const [starList, setStarList] = useState([])
@@ -19,7 +20,6 @@ export function Main(){
         setRestaurantList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         setStarList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         setSearchList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
-        console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
         
     }
 
@@ -53,7 +53,14 @@ export function Main(){
         {/* restaurant card container */}
 
         <div className="main h-auto mt-3 p-10 flex gap-[5vh] flex-wrap bg-gray-100">
-            {restaurantsList.map((data) => (<ResCard key={data.info.id}  resData={data} />))}
+          {restaurantsList.map((data) => (
+            <Link 
+              key={data.info.id}
+              to={`/restaurant/${data.info.id}`}
+            >
+              <ResCard resData={data} />
+            </Link>
+          ))}
         </div>
 
       </div>
