@@ -1,18 +1,11 @@
-import { useState } from "react"
+// import { use, useState } from "react"
 
-export function FilterBar() {
+// export function FilterBar() {
 
+//   const [searchList, setSearchList] = useState([])
+//   const [starList, setStarList] = useState([])
 
-  
-  return(
-    <div className="filterBar flex gap-4 mt-3 ml-2">
-      <input type="text"  className=" border-1 rounded-2xl"/>
-      <button className=" border-1 p-2 rounded-2xl">Search</button>
-      <button 
-      className=" border-1 p-2 rounded-2xl"
-      // onClick={}
-      >
-        Rating 4+</button>
-    </div>
-  )
-}
+//   return(
+    
+//   )
+// }

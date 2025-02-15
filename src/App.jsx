@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Navbar } from './Components/Navbar'
-import { FilterBar } from './Components/FilterBar'
 import { Main } from './Components/main'
 
 function App() {
@@ -8,7 +7,6 @@ function App() {
   return(
     <>
       <Navbar />
-      <FilterBar />
       <Main />
     </>
   )
