@@ -6,6 +6,7 @@ export function Main(){
     const [restaurantsList, setRestaurantList] = useState([])
     const [searchList, setSearchList] = useState([])
     const [starList, setStarList] = useState([])
+    const [input, setInput] = useState('')
 
     useEffect(() => {
         getRestaurants()
@@ -18,6 +19,8 @@ export function Main(){
         setRestaurantList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         setStarList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
         setSearchList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
+        console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+        
     }
 
     return(
@@ -25,17 +28,26 @@ export function Main(){
         {/* filter bar */}
 
         <div className="filterBar flex gap-4 mt-3 ml-2 bg-gray-100">
-          <input type="text"  className=" border-1 rounded-2xl"/>
+          <input type="text"  
+          className=" border-1 rounded-2xl" 
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          />
           <button 
           className=" border-1 p-2 rounded-2xl"
-          // onClick={setSearchList()}
+          onClick={() => {
+            const list = searchList.filter((restaurant) => restaurant.info.name.toLowerCase().includes(input.toLocaleLowerCase()))
+            setRestaurantList(list)
+          }}
           >Search</button>
           <button 
-
           className=" border-1 p-2 rounded-2xl"
-          // onClick={}
+          onClick={() => {
+            const list = starList.filter((restaurant) => restaurant.info.avgRating > 4.2)
+            setRestaurantList(list)
+          }}
           >
-            Rating 4+</button>
+            High Rated</button>
         </div>
 
         {/* restaurant card container */}
