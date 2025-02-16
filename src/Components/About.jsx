@@ -1,5 +1,7 @@
+import UserClass from "./UserClass"
+
 export default function About() {
   return(
-    <h1>Fuck you, Zomato</h1>
+    <UserClass name="Gautam" location="Sirsa, Haryana" />
   )
 }

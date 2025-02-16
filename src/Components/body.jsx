@@ -2,26 +2,12 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { ResCard } from "./ResCard"
 import { Link } from "react-router"
+import UseResData from "../utils/useResData"
 
 export function Body(){
-    const [restaurantsList, setRestaurantList] = useState([])
-    const [searchList, setSearchList] = useState([])
-    const [starList, setStarList] = useState([])
     const [input, setInput] = useState('')
 
-    useEffect(() => {
-        getRestaurants()
-    }, [])
-
-    async function getRestaurants() {
-        const res = await fetch ("https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5416341&lng=73.8314762&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
-        let json = await res.json()
-
-        setRestaurantList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
-        setStarList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
-        setSearchList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants)
-        
-    }
+    const {restaurantsList, setRestaurantList} = UseResData()
 
     return(
       <div className="main bg-gray-100 p-2">
@@ -36,14 +22,14 @@ export function Body(){
           <button 
           className=" border-1 p-2 rounded-2xl"
           onClick={() => {
-            const list = searchList.filter((restaurant) => restaurant.info.name.toLowerCase().includes(input.toLocaleLowerCase()))
+            const list = restaurantsList.filter((restaurant) => restaurant.info.name.toLowerCase().includes(input.toLocaleLowerCase()))
             setRestaurantList(list)
           }}
           >Search</button>
           <button 
           className=" border-1 p-2 rounded-2xl"
           onClick={() => {
-            const list = starList.filter((restaurant) => restaurant.info.avgRating > 4.2)
+            const list = restaurantsList.filter((restaurant) => restaurant.info.avgRating > 4.2)
             setRestaurantList(list)
           }}
           >

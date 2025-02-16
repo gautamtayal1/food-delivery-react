@@ -10,7 +10,6 @@ export default function RestaurantPage() {
   const [input, setInput] = useState('')
 
   const { resId } = useParams()
-  console.log(resId)
 
   useEffect(() => {
     fetchData()
@@ -21,7 +20,6 @@ export default function RestaurantPage() {
     const json = await data.json()
     const menu = 
     json.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card.itemCards
-    console.log(menu);
     
     setResMenu(menu)
     setFilteredMenu(menu)
