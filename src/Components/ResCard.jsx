@@ -21,3 +21,14 @@ export function ResCard({ resData }) {
     </div>
   )
 }
+
+export const withPromoted = (ResCard) => {
+  return(props) => {
+    return(
+      <div>
+        <label htmlFor="">Promoted</label>
+        <ResCard {...props}/>
+      </div>
+    )
+  }
+}

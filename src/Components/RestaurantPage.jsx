@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { RESTAURANT_URL } from "../utils/links"
-import { MenuPage } from "./MenuPage"
 import { useParams } from "react-router"
+import { ItemCategory } from "./ItemCategory"
 
 export default function RestaurantPage() {
   
@@ -19,10 +19,12 @@ export default function RestaurantPage() {
     const data = await fetch(RESTAURANT_URL + resId)
     const json = await data.json()
     const menu = 
-    json.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card.itemCards
-    
-    setResMenu(menu)
-    setFilteredMenu(menu)
+    json.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards
+    const updatedMenu = menu.filter((data) => 
+      data?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
+    console.log(updatedMenu)
+    setResMenu(updatedMenu)
+    setFilteredMenu(updatedMenu)
   }
 
   return(
@@ -42,10 +44,12 @@ export default function RestaurantPage() {
           const entry = input
           setResMenu(filteredMenu.filter((item) => item.card.info.name.toLowerCase().includes(entry.toLowerCase())))
         }}
-        ><i class="fa-solid fa-magnifying-glass" /></button>
+        ><i className="fa-solid fa-magnifying-glass" /></button>
+
 
         <div className="menuContainer h-auto">
-         {resMenu.map((data) => <MenuPage key = {data.card.info.id} menuData={data} />)}
+          {resMenu.map((category) => <ItemCategory key={category.card.card.categoryId} menuData={category} />)}
+         {/* {resMenu.map((data) => <MenuPage key = {data.card.info.id} menuData={data} />)} */}
         </div>
         
       </div>

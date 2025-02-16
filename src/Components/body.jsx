@@ -1,6 +1,5 @@
 import { useState } from "react"
-import { useEffect } from "react"
-import { ResCard } from "./ResCard"
+import { ResCard , withPromoted} from "./ResCard"
 import { Link } from "react-router"
 import UseResData from "../utils/useResData"
 
@@ -8,6 +7,8 @@ export function Body(){
     const [input, setInput] = useState('')
 
     const {restaurantsList, setRestaurantList} = UseResData()
+
+    const PromotedResCard = withPromoted(ResCard)
 
     return(
       <div className="main bg-gray-100 p-2">
@@ -44,7 +45,7 @@ export function Body(){
               key={data.info.id}
               to={`/restaurant/${data.info.id}`}
             >
-              <ResCard resData={data} />
+              {data.info.promoted ? <PromotedResCard resData={data} /> : <ResCard resData={data}/>}
             </Link>
           ))}
         </div>
