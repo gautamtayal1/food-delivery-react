@@ -1,6 +1,14 @@
+import { useDispatch } from "react-redux"
+import { addItem } from "../utils/cartSlice"
+
 export function MenuPage({menuData}) {
-  console.log(menuData);
-  
+
+  const dispatch = useDispatch()
+
+  const handleAddItem = () => {
+    dispatch(addItem("pizza"))
+  }
+
   return(
     <div className="">
       {menuData.map((item) => (
@@ -12,6 +20,13 @@ export function MenuPage({menuData}) {
           <div className="description text-[12px]">{item.card.info.description}</div>
         </div>
         <div className="image h-[30%] p-1">
+          <div className="absolute">
+            <button 
+            className="bg-white p-2 rounded-2xl border text-green-500"
+            onClick={() => handleAddItem(item)}>
+              ADD+
+            </button>
+          </div>
           <img 
           src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" + item.card.info.imageId}
           className=" object-fill h-[60%] rounded-3xl"
